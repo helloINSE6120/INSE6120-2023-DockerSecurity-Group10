@@ -7,13 +7,15 @@ regardless of whether it is not writable, immutable, or located in a read-only m
 This exploit requires Linux 5.8 to 5.11.16;
 
 source: https://dirtypipe.cm4all.com/
-To start we should have exploit files on our system after that I checked my Linux version to see if it is compatible with the attack:
+To start we should have exploit files on our system
+after that I checked my Linux version to see if it is compatible with the attack:
 
 lsb_release -a
 
 uname -a
 
-then username should be checked that it doesn't have privileged access (checking group and running a simple sudo command):
+then username should be checked that it doesn't have privileged access
+(checking group and running a simple sudo command):
 
 groups -USERNAME
 sudo apt-get update
@@ -41,7 +43,8 @@ and now it is possible for the attacker that open an interactive shell with elev
 
 command so all security categories will compromise in this attack.
 
-I modified the source code for this scenario but the copyright of the code belongs to Max Kellerman. the root password was temporarily changed to "INSE6120" and the password hash should also be changed by:
+I modified the source code for this scenario but the copyright of the code belongs to Max Kellerman.
+the root password was temporarily changed to "INSE6120" and the password hash should also be changed by:
 
 openssl passwd -6 -salt root
 

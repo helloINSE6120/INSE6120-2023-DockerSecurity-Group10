@@ -1,0 +1,42 @@
+Dirty pipe exploit, it's a local vulnerability in the linux kernel (CVE-2022-0847)
+it threats docker containers directly.
+This issue was a result of an uninitialized variable called "pipe_buffer.flags."
+It illustrates the ability to modify the content of any file in the page cache,
+regardless of whether it is not writable, immutable, or located in a read-only mount.
+
+This exploit requires Linux 5.8 to 5.11.16;
+
+source: https://dirtypipe.cm4all.com/
+To start we should have exploit files on our system after that I checked my Linux version to see if it is compatible with the attack:
+
+lsb_release -a
+
+uname -a
+
+then username should be checked that it doesn't have privileged access (checking group and running a simple sudo command):
+
+groups -USERNAME
+sudo apt-get update
+
+then I ran the dirty pipe checker
+
+./dpipde.sh
+
+then navigate to the exploit file location and complete the exploit file 
+
+./compile.sh
+
+then run the compiled file itself 
+
+./exploit-1
+
+then the root user access should have been achieved and now we can test our access by running any privileged command 
+now we can see the user is changed to the root user by this command:
+whoami
+an interactive shell with elevated privileges was opened with  "/bin/bash -i" command.
+
+I edit the source code for this scenario but the copyright of the code belongs to Max Kellerman. the root password was temporarily changed to "INSE6120" and the password hash should also be changed by:
+
+openssl passwd -6 -salt root
+
+command but the original password hash will save in a temp file to return every thing to default after the attack to minimize any footprint.

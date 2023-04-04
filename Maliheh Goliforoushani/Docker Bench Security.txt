@@ -1,0 +1,28 @@
+The Docker Bench for Security is a script that verifies dozens of common best practices for Docker container deployment in production. All of the evaluations are automated.
+
+I conducted following steps to show how Docker Benchmark Security can verify vulnerabilities in a container and how to address them:
+
+1) 
+docker run -itd --name Vulnerable1 alpine
+
+2)
+docker run --rm --net host --pid host --userns host --cap-add audit_control \
+    -e DOCKER_CONTENT_TRUST=$DOCKER_CONTENT_TRUST \
+    -v /etc:/etc:ro \
+    -v /usr/bin/containerd:/usr/bin/containerd:ro \
+    -v /usr/bin/runc:/usr/bin/runc:ro \
+    -v /usr/lib/systemd:/usr/lib/systemd:ro \
+    -v /var/lib:/var/lib:ro \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    --label docker_bench_security \
+3) 
+docker stop $(docker ps -q)
+
+4)
+docker run -itd  --user 1001:1001 --name Vulnerable2 alpine
+
+5)
+docker exec -it Vulnerable2 sh
+
+6)
+$ cat /etc/shadow

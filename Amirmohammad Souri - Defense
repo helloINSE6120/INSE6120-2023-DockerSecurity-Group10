@@ -1,0 +1,15 @@
+I used Trivy Defense tool to scan vulnerabilities and security problems on docker container images and their dependencies.
+For testing that, at first I ran DVWA container. This is pre-vulnerable container for testing.
+
+--> docker pull vulnerables/web-dvwa
+
+So now the vulnerable container is running.
+Then I pull trivy container
+
+--> docker pull aquasec/trivy
+
+at last we pass the web-dvwa container to trivy to scan that and find vulnerabilities.
+
+--> trivy image vulnerability/web-dvwa
+
+after that, trivy shows all the known vulnerabilities that it has on its database.

